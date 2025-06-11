@@ -26,6 +26,8 @@
             --iran-green: #239f40;
             --iran-white: #ffffff;
             --iran-red: #da0000;
+            --special-red: #d92b2b;
+            --special-red-glow: rgba(217, 43, 43, 0.6);
             --success-color: #28a745;
             --success-color-glow: rgba(40, 167, 69, 0.5);
             --bg-color: var(--bg-light);
@@ -55,6 +57,11 @@
             50% { box-shadow: 7px 7px 15px var(--shadow-2), -7px -7px 15px var(--shadow-1), 0 0 20px 5px var(--success-color-glow); }
             100% { box-shadow: 7px 7px 15px var(--shadow-2), -7px -7px 15px var(--shadow-1), 0 0 0px var(--success-color-glow); }
         }
+        @keyframes special-glow-pulse {
+            0% { box-shadow: 7px 7px 15px var(--shadow-2), -7px -7px 15px var(--shadow-1), 0 0 0px var(--special-red-glow); }
+            50% { box-shadow: 7px 7px 15px var(--shadow-2), -7px -7px 15px var(--shadow-1), 0 0 25px 8px var(--special-red-glow); }
+            100% { box-shadow: 7px 7px 15px var(--shadow-2), -7px -7px 15px var(--shadow-1), 0 0 0px var(--special-red-glow); }
+        }
         * { box-sizing: border-box; }
         body { background-color: var(--bg-color); color: var(--text-color); font-family: 'Vazirmatn', sans-serif; transition: background-color 0.3s ease, color 0.3s ease; margin: 0; text-align: right; display: flex; flex-direction: column; min-height: 100vh; }
         main { max-width: 600px; width: 100%; margin: 0 auto; padding: 1rem; flex-grow: 1; display: flex; flex-direction: column; justify-content: center; }
@@ -67,11 +74,14 @@
         .title-container h3 { font-size: 1.5rem; font-weight: 500; margin: 0 0 10px 0; color: var(--primary-color); }
         .subtitle { font-size: 1rem; margin: 0; }
         .section-title { font-size: 1.2rem; text-align: center; font-weight: 700; margin: 2rem 0 1.5rem 0; color: var(--text-color); }
-        .sub-nav, .flag-nav { display: grid; grid-template-columns: 1fr 1fr; gap: 25px 20px; margin-top: 1rem; }
+        .sub-nav, .flag-nav { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 25px 20px; margin-top: 1rem; }
         .nav-btn { background: var(--card-bg); color: var(--text-color); border: none; padding: 18px; font-family: 'Vazirmatn', sans-serif; font-size: 1rem; font-weight: 700; border-radius: 12px; cursor: pointer; transition: all 0.2s ease-out; box-shadow: 7px 7px 15px var(--shadow-2), -7px -7px 15px var(--shadow-1); min-height: 60px; }
         .nav-btn:hover:not(:disabled), .flag-btn:hover:not(:disabled) { transform: translateY(-5px); box-shadow: 7px 12px 20px var(--shadow-2), -7px -12px 20px var(--shadow-1); }
         .nav-btn.copied, .flag-btn.copied { animation: success-glow-pulse 0.8s ease-out; cursor: default; }
         .nav-btn:disabled, .flag-btn:disabled { cursor: default; }
+        .special-btn { background: var(--special-red); color: white; }
+        body.dark-theme .special-btn { background: var(--special-red); }
+        .special-btn.copied { color: white; animation: special-glow-pulse 0.9s ease-out; }
         .flag-btn { border: none; padding: 0; overflow: hidden; display: flex; flex-direction: column; background: var(--card-bg); font-family: 'Vazirmatn', sans-serif; border-radius: 12px; cursor: pointer; transition: all 0.2s ease-out; box-shadow: 7px 7px 15px var(--shadow-2), -7px -7px 15px var(--shadow-1); }
         .flag-img-container { width: 100%; height: 90px; }
         .flag-img-container img { width: 100%; height: 100%; object-fit: cover; }
@@ -93,6 +103,15 @@
         .slider { position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background-color: var(--bg-color); transition: .4s; border-radius: 50%; box-shadow: 3px 3px 6px var(--shadow-2), -3px -3px 6px var(--shadow-1); }
         .slider:before { position: absolute; content: "🌙"; font-size: 18px; height: 100%; width: 100%; display: flex; align-items: center; justify-content: center; transition: .4s; opacity: 1; }
         body.dark-theme .slider:before { content: "☀️"; }
+        .recommendation-section { margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--shadow-2); }
+        .recommendation-text { font-size: 0.95rem; line-height: 1.7; max-width: 450px; margin: 0 auto 1.5rem auto; }
+        .app-links-container { display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap; }
+        .app-card { background: var(--card-bg); border-radius: 12px; box-shadow: 7px 7px 15px var(--shadow-2), -7px -7px 15px var(--shadow-1); padding: 1.5rem 1rem; width: 160px; display: flex; flex-direction: column; align-items: center; text-align: center; }
+        .app-logo { width: 50px; height: 50px; margin-bottom: 1rem; border-radius: 10px; }
+        .app-name { font-weight: 700; font-size: 1.1rem; color: var(--text-color); margin-bottom: 1.2rem; }
+        .download-btn { background-color: var(--primary-color); color: white; text-decoration: none; padding: 10px 20px; border-radius: 8px; font-weight: 500; font-size: 0.9rem; transition: background-color 0.2s ease, transform 0.2s ease; }
+        .download-btn:hover { background-color: #0056b3; transform: scale(1.05); }
+        body.dark-theme .download-btn:hover { background-color: #3a9dff; }
     </style>
 </head>
 <body>
@@ -104,6 +123,15 @@
         </div>
     </header>
     <main>
+        <h2 class="section-title">ساب های اختصاصی کانال REDFREE8</h2>
+        <nav class="sub-nav">
+             <button class="nav-btn special-btn" data-url="https://raw.githubusercontent.com/pooriamred/config-fetcher-reality/refs/heads/main/configs/proxy_configs.txt#@Redfree8/reality">REALITY pro</button>
+             <button class="nav-btn special-btn" data-url="https://raw.githubusercontent.com/pooriAbdollahnezhad/config-fetcher-hy2/refs/heads/main/configs/proxy_configs.txt#@REDFREE8/Hysteria2">HY2 pro</button>
+             <button class="nav-btn special-btn" data-url="https://raw.githubusercontent.com/redfree8/config-fetcher/refs/heads/main/configs/proxy_configs.txt#@REDFREE8/MIXpro">MIX pro</button>
+             <button class="nav-btn special-btn" data-url="https://raw.githubusercontent.com/pooriaorg99/config-fetcher-vless/refs/heads/main/configs/proxy_configs.txt#@REDFREE8/vless">VLESS pro</button>
+             <button class="nav-btn special-btn" data-url="https://raw.githubusercontent.com/pooriaorg10/config-fetcher-ss/refs/heads/main/configs/proxy_configs.txt#@REDFREE8/ss">SS pro</button>
+        </nav>
+        
         <h2 class="section-title">سرویس‌های عمومی</h2>
         <nav class="sub-nav">
             <button class="nav-btn" data-url="https://raw.githubusercontent.com/arshiacomplus/v2rayExtractor/refs/heads/main/mix/sub.html">MIX</button>
@@ -112,10 +140,6 @@
             <button class="nav-btn" data-url="https://raw.githubusercontent.com/arshiacomplus/v2rayExtractor/refs/heads/main/trojan.html">TROJAN</button>
             <button class="nav-btn" data-url="https://raw.githubusercontent.com/arshiacomplus/v2rayExtractor/refs/heads/main/ss.html">SS</button>
             <button class="nav-btn" data-url="https://raw.githubusercontent.com/arshiacomplus/v2rayExtractor/refs/heads/main/hy2.html">HY2</button>
-            <button class="nav-btn" data-url="https://raw.githubusercontent.com/4n0nymou3/auto-warp-config/refs/heads/main/config.txt#Anonymous">WARP PRO</button>
-            <button class="nav-btn" data-url="https://raw.githubusercontent.com/4n0nymou3/multi-proxy-config-fetcher/refs/heads/main/configs/proxy_configs.txt">MIX PRO</button>
-            <button class="nav-btn" data-url="https://raw.githubusercontent.com/iPsycho1/multi-proxy-config-fetcher/refs/heads/main/configs/proxy_configs.txt">MIX 3</button>
-            <button class="nav-btn" data-url="https://raw.githubusercontent.com/Rayan-Config/C-Sub/refs/heads/main/configs/proxy.txt">MIX 4</button>
         </nav>
 
         <h2 class="section-title">بر اساس لوکیشن</h2>
@@ -157,6 +181,28 @@
                 </svg>
                 <span class="telegram-username">REDFREE8</span>
             </a>
+        </div>
+        
+        <div class="recommendation-section">
+            <h2 class="section-title">برنامه‌های پیشنهادی</h2>
+            <p class="recommendation-text">برای استفاده از لینک‌های اشتراک، می‌توانید یکی از برنامه‌های زیر را نصب کنید. البته این لینک‌ها در اکثر برنامه‌های رایج دیگر نیز قابل استفاده هستند.</p>
+            <div class="app-links-container">
+                <div class="app-card">
+                    <img class="app-logo" src="https://hiddify.com/assets/img/logo.svg" alt="Hiddify Logo">
+                    <span class="app-name">Hiddify Next</span>
+                    <a href="https://github.com/hiddify/hiddify-next/releases" class="download-btn" target="_blank">صفحه دانلود</a>
+                </div>
+                <div class="app-card">
+                    <img class="app-logo" style="border-radius: 50%;" src="https://avatars.githubusercontent.com/u/144943918?s=200&v=4" alt="Karing Logo">
+                    <span class="app-name">Karing (Android)</span>
+                    <a href="https://github.com/KaringX/karing/releases/download/v1.1.4.730/karing_1.1.4.730_android_armeabi-v7a.apk" class="download-btn" target="_blank">دانلود اندروید</a>
+                </div>
+                 <div class="app-card">
+                    <img class="app-logo" style="border-radius: 50%;" src="https://avatars.githubusercontent.com/u/144943918?s=200&v=4" alt="Karing Logo">
+                    <span class="app-name">Karing (iOS)</span>
+                    <a href="https://apps.apple.com/app/id6472431552" class="download-btn" target="_blank">دریافت از اپ استور</a>
+                </div>
+            </div>
         </div>
     </footer>
 
