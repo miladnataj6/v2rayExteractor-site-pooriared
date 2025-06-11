@@ -1,276 +1,402 @@
 <!DOCTYPE html>
-<html lang="fa" dir="rtl">
+<html lang="fa" dir="rtl" data-theme="light">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>V2Ray Link Copier - PooriaRed</title>
-    <meta name="description" content="کپی مستقیم لینک‌های ساب V2Ray">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;700;800&display=swap" rel="stylesheet">
+    <title>V2Ray Extractor - REDFREE8</title>
+    <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;700&display=swap" rel="stylesheet">
+
     <style>
-        /* --- تمام استایل‌ها در اینجا قرار دارند --- */
+        /* --- Root Variables & Themes --- */
         :root {
-            --bg-light: #e0e5ec;
-            --text-light: #525865;
-            --primary-light: #007BFF;
-            --primary-light-glow: rgba(0, 123, 255, 0.4);
-            --shadow-light-1: #ffffff;
-            --shadow-light-2: #a3b1c6;
-            --bg-dark: #2a2e35;
-            --text-dark: #c1c8d4;
-            --primary-dark: #0d8eff;
-            --primary-dark-glow: rgba(13, 142, 255, 0.4);
-            --shadow-dark-1: #353a42;
-            --shadow-dark-2: #1f2228;
-            --iran-green: #239f40;
-            --iran-white: #ffffff;
-            --iran-red: #da0000;
-            --special-red: #d92b2b;
-            --special-red-glow: rgba(217, 43, 43, 0.6);
-            --success-color: #28a745;
-            --success-color-glow: rgba(40, 167, 69, 0.5);
-            --bg-color: var(--bg-light);
-            --text-color: var(--text-light);
-            --primary-color: var(--primary-light);
-            --primary-glow: var(--primary-light-glow);
-            --shadow-1: var(--shadow-light-1);
-            --shadow-2: var(--shadow-light-2);
-            --card-bg: var(--bg-light);
+            --iran-green: #239F40;
+            --iran-white: #FFFFFF;
+            --iran-red: #DA0000;
+            --font-family: 'Vazirmatn', sans-serif;
         }
-        body.dark-theme {
-            --bg-color: var(--bg-dark);
-            --text-color: var(--text-dark);
-            --primary-color: var(--primary-dark);
-            --primary-glow: var(--primary-dark-glow);
-            --shadow-1: var(--shadow-dark-1);
-            --shadow-2: var(--shadow-dark-2);
-            --card-bg: var(--bg-dark);
+
+        [data-theme="light"] {
+            --bg-color: #f4f7f9;
+            --text-color: #1a1a1a;
+            --card-bg: #ffffff;
+            --border-color: #e0e0e0;
+            --primary-color: #007bff;
+            --primary-hover: #0056b3;
+            --shadow-color: rgba(0, 0, 0, 0.1);
         }
-        @keyframes footer-glow {
-            0% { box-shadow: 7px 7px 15px var(--shadow-2), -7px -7px 15px var(--shadow-1); }
-            50% { box-shadow: 7px 7px 20px var(--shadow-2), -7px -7px 20px var(--shadow-1), 0 0 15px var(--primary-glow); }
-            100% { box-shadow: 7px 7px 15px var(--shadow-2), -7px -7px 15px var(--shadow-1); }
+
+        [data-theme="dark"] {
+            --bg-color: #121212;
+            --text-color: #e0e0e0;
+            --card-bg: #1e1e1e;
+            --border-color: #333333;
+            --primary-color: #4dabf7;
+            --primary-hover: #1e88e5;
+            --shadow-color: rgba(255, 255, 255, 0.1);
         }
-        @keyframes success-glow-pulse {
-            0% { box-shadow: 7px 7px 15px var(--shadow-2), -7px -7px 15px var(--shadow-1), 0 0 0px var(--success-color-glow); }
-            50% { box-shadow: 7px 7px 15px var(--shadow-2), -7px -7px 15px var(--shadow-1), 0 0 20px 5px var(--success-color-glow); }
-            100% { box-shadow: 7px 7px 15px var(--shadow-2), -7px -7px 15px var(--shadow-1), 0 0 0px var(--success-color-glow); }
+
+        /* --- General Styles --- */
+        body {
+            font-family: var(--font-family);
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+            transition: background-color 0.3s, color 0.3s;
         }
-        @keyframes special-glow-pulse {
-            0% { box-shadow: 7px 7px 15px var(--shadow-2), -7px -7px 15px var(--shadow-1), 0 0 0px var(--special-red-glow); }
-            50% { box-shadow: 7px 7px 15px var(--shadow-2), -7px -7px 15px var(--shadow-1), 0 0 25px 8px var(--special-red-glow); }
-            100% { box-shadow: 7px 7px 15px var(--shadow-2), -7px -7px 15px var(--shadow-1), 0 0 0px var(--special-red-glow); }
+
+        main {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 1.5rem;
         }
-        * { box-sizing: border-box; }
-        body { background-color: var(--bg-color); color: var(--text-color); font-family: 'Vazirmatn', sans-serif; transition: background-color 0.3s ease, color 0.3s ease; margin: 0; text-align: right; display: flex; flex-direction: column; min-height: 100vh; }
-        main { max-width: 600px; width: 100%; margin: 0 auto; padding: 1rem; flex-grow: 1; display: flex; flex-direction: column; justify-content: center; }
-        .main-header { padding-top: 1.5rem; }
-        .iran-flag-banner { padding: 1rem 1.5rem; border-radius: 12px; background: linear-gradient(90deg, var(--iran-green) 0%, var(--iran-white) 50%, var(--iran-red) 100%); box-shadow: 0 4px 15px rgba(0,0,0,0.1); margin: 0 1rem 1.5rem 1rem; text-align: center; }
-        .iran-flag-banner h1 { color: #000; font-size: 1.5rem; font-weight: 700; text-shadow: 1px 1px 3px rgba(255,255,255,0.7); margin: 0; }
-        body.dark-theme .iran-flag-banner { box-shadow: 0 4px 20px rgba(0,0,0,0.3); }
-        .header-content { position: relative; text-align: center; padding: 1rem 0; }
-        .title-container h2 { font-size: 2rem; font-weight: 800; margin: 0; color: var(--text-color); }
-        .title-container h3 { font-size: 1.5rem; font-weight: 500; margin: 0 0 10px 0; color: var(--primary-color); }
-        .subtitle { font-size: 1rem; margin: 0; }
-        .section-title { font-size: 1.2rem; text-align: center; font-weight: 700; margin: 2rem 0 1.5rem 0; color: var(--text-color); }
-        /* تغییر چیدمان به حالت دو ستونی ثابت */
-        .sub-nav, .flag-nav { display: grid; grid-template-columns: 1fr 1fr; --grid-gap: 20px; gap: 25px var(--grid-gap); margin-top: 1rem; }
-        .nav-btn { background: var(--card-bg); color: var(--text-color); border: none; padding: 18px; font-family: 'Vazirmatn', sans-serif; font-size: 1rem; font-weight: 700; border-radius: 12px; cursor: pointer; transition: all 0.2s ease-out; box-shadow: 7px 7px 15px var(--shadow-2), -7px -7px 15px var(--shadow-1); min-height: 60px; }
-        .nav-btn:hover:not(:disabled), .flag-btn:hover:not(:disabled) { transform: translateY(-5px); box-shadow: 7px 12px 20px var(--shadow-2), -7px -12px 20px var(--shadow-1); }
-        .nav-btn.copied, .flag-btn.copied { animation: success-glow-pulse 0.8s ease-out; cursor: default; }
-        .nav-btn:disabled, .flag-btn:disabled { cursor: default; }
-        .special-btn { background: var(--special-red); color: white; }
-        body.dark-theme .special-btn { background: var(--special-red); }
-        .special-btn.copied { color: white; animation: special-glow-pulse 0.9s ease-out; }
-        /* کد جدید برای وسط چین کردن دکمه پنجم */
-        .special-sub-nav .nav-btn:last-child:nth-child(odd) {
-            grid-column: 1 / -1; /* کل عرض گرید را اشغال کند */
-            justify-self: center; /* خود دکمه در این فضا وسط چین شود */
-            width: calc(50% - (var(--grid-gap) / 2)); /* عرض دکمه برابر یک ستون باشد */
+
+        /* --- Header & Banner --- */
+        .main-header { padding: 1rem 1.5rem; position: relative; }
+        .iran-banner { text-align: center; padding: 1rem; border-radius: 12px; border: 2px solid transparent; background: linear-gradient(var(--card-bg), var(--card-bg)) padding-box, linear-gradient(to left, var(--iran-green), var(--iran-white), var(--iran-red)) border-box; box-shadow: 0 4px 15px var(--shadow-color); }
+        .iran-banner h1 { margin: 0; font-size: 1.8rem; font-weight: 700; background: linear-gradient(to right, var(--iran-green), #333, var(--iran-red)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; text-fill-color: transparent; }
+
+        /* --- Theme Switcher --- */
+        .theme-switcher-container { position: absolute; top: 1.5rem; left: 1.5rem; }
+        #theme-toggle { background: var(--card-bg); border: 1px solid var(--border-color); color: var(--text-color); font-size: 1.5rem; width: 50px; height: 50px; border-radius: 50%; cursor: pointer; display: flex; justify-content: center; align-items: center; transition: transform 0.2s, box-shadow 0.2s; }
+        #theme-toggle:hover { transform: scale(1.1); box-shadow: 0 0 10px var(--primary-color); }
+
+        /* --- REDFREE8 Subs Section --- */
+        .redfree-subs-section {
+            text-align: center;
+            margin-bottom: 40px;
         }
-        .flag-btn { border: none; padding: 0; overflow: hidden; display: flex; flex-direction: column; background: var(--card-bg); font-family: 'Vazirmatn', sans-serif; border-radius: 12px; cursor: pointer; transition: all 0.2s ease-out; box-shadow: 7px 7px 15px var(--shadow-2), -7px -7px 15px var(--shadow-1); }
-        .flag-img-container { width: 100%; height: 90px; }
-        .flag-img-container img { width: 100%; height: 100%; object-fit: cover; }
-        .flag-label { padding: 12px 10px; text-align: center; font-weight: 700; font-size: 1rem; color: var(--text-color); }
-        #message-area { text-align: center; padding: 1rem; margin-top: 1.5rem; min-height: 50px; font-weight: 500; }
-        .main-footer { text-align: center; padding: 2rem 1rem 1.5rem 1rem; }
-        .footer-content { background: var(--card-bg); display: inline-block; padding: 1.2rem 2rem; border-radius: 20px; animation: footer-glow 5s ease-in-out infinite; }
-        .designer-name { margin: 0 0 1rem 0; font-weight: 500; font-size: 1rem; color: var(--text-color); }
-        .instagram-link, .telegram-link { display: flex; align-items: center; justify-content: center; gap: 10px; text-decoration: none; transition: transform 0.3s ease; }
-        .instagram-link { margin-bottom: 0.7rem; }
-        .instagram-link:hover, .telegram-link:hover { transform: scale(1.05); }
-        .instagram-username { color: var(--text-color); font-weight: 700; font-size: 1.1rem; transition: color 0.3s ease; }
-        .telegram-username { color: var(--text-color); font-weight: 500; font-size: 1rem; transition: color 0.3s ease; }
-        .instagram-link:hover .instagram-username, .telegram-link:hover .telegram-username { color: var(--primary-color); }
-        .instagram-logo, .telegram-logo { width: 24px; height: 24px; }
-        .theme-switcher-container { position: absolute; top: 0; left: 1rem; }
-        .theme-switcher { position: relative; display: inline-block; width: 34px; height: 34px; }
-        .theme-switcher input { opacity: 0; width: 0; height: 0; }
-        .slider { position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background-color: var(--bg-color); transition: .4s; border-radius: 50%; box-shadow: 3px 3px 6px var(--shadow-2), -3px -3px 6px var(--shadow-1); }
-        .slider:before { position: absolute; content: "🌙"; font-size: 18px; height: 100%; width: 100%; display: flex; align-items: center; justify-content: center; transition: .4s; opacity: 1; }
-        body.dark-theme .slider:before { content: "☀️"; }
-        .recommendation-section { margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--shadow-2); }
-        .recommendation-text { font-size: 0.95rem; line-height: 1.7; max-width: 450px; margin: 0 auto 1.5rem auto; }
-        .app-links-container { display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap; }
-        .app-card { background: var(--card-bg); border-radius: 12px; box-shadow: 7px 7px 15px var(--shadow-2), -7px -7px 15px var(--shadow-1); padding: 1.5rem 1rem; width: 160px; display: flex; flex-direction: column; align-items: center; text-align: center; }
-        .app-logo { width: 50px; height: 50px; margin-bottom: 1rem; border-radius: 10px; }
-        .app-name { font-weight: 700; font-size: 1.1rem; color: var(--text-color); margin-bottom: 1.2rem; }
-        .download-btn { background-color: var(--primary-color); color: white; text-decoration: none; padding: 10px 20px; border-radius: 8px; font-weight: 500; font-size: 0.9rem; transition: background-color 0.2s ease, transform 0.2s ease; }
-        .download-btn:hover { background-color: #0056b3; transform: scale(1.05); }
-        body.dark-theme .download-btn:hover { background-color: #3a9dff; }
+        .redfree-subs-section h3 {
+            color: #FF5252;
+            font-weight: 500;
+            margin-bottom: 25px;
+            font-size: 1.5rem;
+        }
+        .redfree-subs-section h3 a {
+            color: #FF5252;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .sub-container-redfree {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+        }
+        .sub-button-red {
+            background: linear-gradient(145deg, #e53935, #b71c1c);
+            color: white;
+            font-weight: bold;
+            padding: 15px 20px;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(229, 57, 53, 0.4);
+            flex-basis: calc(45% - 15px);
+            text-align: center;
+        }
+        .sub-button-red:last-child {
+            flex-basis: calc(45% - 15px);
+        }
+        .sub-button-red:active, .sub-button-red.copied {
+            transform: translateY(2px);
+            box-shadow: 0 0 35px 10px rgba(255, 82, 82, 0.8);
+        }
+
+        /* --- Public Services Section --- */
+        .public-services-title {
+            text-align: center;
+            color: var(--text-color);
+            font-weight: bold;
+            margin-top: 40px;
+            margin-bottom: 1.5rem;
+            border-top: 1px solid var(--border-color);
+            padding-top: 2rem;
+        }
+        .subscription-menu { display: flex; flex-wrap: wrap; gap: 1rem; justify-content: center; margin-bottom: 2.5rem; }
+        .sub-button { padding: 0.8rem 1.5rem; font-size: 1rem; font-family: var(--font-family); font-weight: 700; background-color: var(--card-bg); color: var(--text-color); border: 2px solid var(--border-color); border-radius: 8px; cursor: pointer; transition: all 0.3s ease; box-shadow: 0 2px 5px var(--shadow-color); position: relative; overflow: hidden; }
+        .sub-button:hover, .sub-button.active { border-color: var(--primary-color); color: var(--primary-color); box-shadow: 0 4px 12px var(--shadow-color); animation: pulse 1.5s infinite; }
+        @keyframes pulse { 0% { box-shadow: 0 0 0 0 rgba(0, 123, 255, 0.4); } 70% { box-shadow: 0 0 0 10px rgba(0, 123, 255, 0); } 100% { box-shadow: 0 0 0 0 rgba(0, 123, 255, 0); } }
+        [data-theme="dark"] .sub-button:hover, [data-theme="dark"] .sub-button.active { color: var(--primary-color); animation-name: pulse-dark; }
+        @keyframes pulse-dark { 0% { box-shadow: 0 0 0 0 rgba(77, 171, 247, 0.4); } 70% { box-shadow: 0 0 0 10px rgba(77, 171, 247, 0); } 100% { box-shadow: 0 0 0 0 rgba(77, 171, 247, 0); } }
+
+        /* --- Configs Container & Loader --- */
+        #configs-container { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1.5rem; padding: 1rem; }
+        .config-card { background-color: var(--card-bg); border: 1px solid var(--border-color); border-radius: 10px; padding: 1rem; box-shadow: 0 4px 8px var(--shadow-color); display: flex; flex-direction: column; gap: 1rem; transition: transform 0.3s, box-shadow 0.3s; word-break: break-all; }
+        .config-card:hover { transform: translateY(-5px); box-shadow: 0 8px 16px var(--shadow-color); }
+        .config-name { font-weight: 700; color: var(--primary-color); text-align: center; font-size: 1.1rem; }
+        .copy-button { padding: 0.6rem; width: 100%; background-color: var(--primary-color); color: white; border: none; border-radius: 6px; cursor: pointer; font-family: var(--font-family); font-weight: 700; transition: background-color 0.2s; }
+        .copy-button:hover { background-color: var(--primary-hover); }
+        .loader-container { grid-column: 1 / -1; text-align: center; padding: 3rem; color: var(--text-color); }
+        .loader { border: 8px solid var(--border-color); border-top: 8px solid var(--primary-color); border-radius: 50%; width: 60px; height: 60px; animation: spin 1s linear infinite; margin: 0 auto 1rem; }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+
+        /* --- App Download Section --- */
+        .app-download-section {
+            text-align: center;
+            margin-top: 50px;
+            padding: 30px 20px;
+            border-top: 1px solid var(--border-color);
+        }
+        .app-download-section h3 {
+            font-weight: bold;
+            color: var(--text-color);
+            font-size: 1.5rem;
+        }
+        .app-download-section p {
+            color: #666;
+            margin-bottom: 30px;
+        }
+        [data-theme="dark"] .app-download-section p {
+            color: #aaa;
+        }
+        .apps-container {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+        .app-card {
+            background-color: var(--card-bg);
+            border-radius: 15px;
+            padding: 25px;
+            width: 300px;
+            box-shadow: 0 4px 20px var(--shadow-color);
+            border: 1px solid var(--border-color);
+        }
+        .app-card h4 {
+            margin-top: 0;
+            margin-bottom: 20px;
+            font-size: 22px;
+            color: var(--text-color);
+        }
+        .download-button {
+            display: block;
+            text-decoration: none;
+            color: white !important;
+            padding: 12px;
+            border-radius: 10px;
+            margin-top: 10px;
+            font-weight: 500;
+            transition: transform 0.2s ease;
+        }
+        .download-button:hover {
+            transform: scale(1.05);
+        }
+        .ios-button { background-color: #007aff; }
+        .android-button { background-color: #3ddc84; }
+
+        /* --- Footer --- */
+        .main-footer { text-align: center; padding: 2rem; margin-top: 2rem; border-top: 1px solid var(--border-color); color: #888; }
+        .main-footer a { color: var(--primary-color); text-decoration: none; transition: color 0.2s; }
+        .main-footer a:hover { color: var(--primary-hover); }
+
+        /* --- Responsive Design --- */
+        @media (max-width: 768px) {
+            .iran-banner h1 { font-size: 1.4rem; }
+            .subscription-menu { flex-direction: column; align-items: stretch; }
+            #configs-container { grid-template-columns: 1fr; }
+            .sub-button-red, .sub-button-red:last-child { flex-basis: 90%; }
+        }
     </style>
 </head>
 <body>
+
     <header class="main-header">
-        <div class="iran-flag-banner"><h1>به امید ایرانی آزاد</h1></div>
-        <div class="header-content">
-            <div class="theme-switcher-container"><label class="theme-switcher"><input type="checkbox" id="theme-toggle"><span class="slider"></span></label></div>
-            <div class="title-container"><h2>V2Ray Extractor</h2><h3>Ultimate</h3><p class="subtitle">استخراج و شخصی‌سازی کانفیگ‌های V2Ray</p></div>
+        <div class="iran-banner">
+            <h1>به امید ایرانی آزاد</h1>
+        </div>
+        <div class="theme-switcher-container">
+            <button id="theme-toggle">🌙</button>
         </div>
     </header>
+
     <main>
-        <h2 class="section-title">ساب های اختصاصی کانال REDFREE8</h2>
-        <nav class="sub-nav special-sub-nav">
-             <button class="nav-btn special-btn" data-url="https://raw.githubusercontent.com/pooriamred/config-fetcher-reality/refs/heads/main/configs/proxy_configs.txt#@Redfree8/reality">REALITY pro</button>
-             <button class="nav-btn special-btn" data-url="https://raw.githubusercontent.com/pooriAbdollahnezhad/config-fetcher-hy2/refs/heads/main/configs/proxy_configs.txt#@REDFREE8/Hysteria2">HY2 pro</button>
-             <button class="nav-btn special-btn" data-url="https://raw.githubusercontent.com/redfree8/config-fetcher/refs/heads/main/configs/proxy_configs.txt#@REDFREE8/MIXpro">MIX pro</button>
-             <button class="nav-btn special-btn" data-url="https://raw.githubusercontent.com/pooriaorg99/config-fetcher-vless/refs/heads/main/configs/proxy_configs.txt#@REDFREE8/vless">VLESS pro</button>
-             <button class="nav-btn special-btn" data-url="https://raw.githubusercontent.com/pooriaorg10/config-fetcher-ss/refs/heads/main/configs/proxy_configs.txt#@REDFREE8/ss">SS pro</button>
-        </nav>
-        
-        <h2 class="section-title">سرویس‌های عمومی</h2>
-        <nav class="sub-nav">
-            <button class="nav-btn" data-url="https://raw.githubusercontent.com/arshiacomplus/v2rayExtractor/refs/heads/main/mix/sub.html">MIX</button>
-            <button class="nav-btn" data-url="https://raw.githubusercontent.com/arshiacomplus/v2rayExtractor/refs/heads/main/vless.html">VLESS</button>
-            <button class="nav-btn" data-url="https://raw.githubusercontent.com/arshiacomplus/v2rayExtractor/refs/heads/main/vmess.html">VMESS</button>
-            <button class="nav-btn" data-url="https://raw.githubusercontent.com/arshiacomplus/v2rayExtractor/refs/heads/main/trojan.html">TROJAN</button>
-            <button class="nav-btn" data-url="https://raw.githubusercontent.com/arshiacomplus/v2rayExtractor/refs/heads/main/ss.html">SS</button>
-            <button class="nav-btn" data-url="https://raw.githubusercontent.com/arshiacomplus/v2rayExtractor/refs/heads/main/hy2.html">HY2</button>
-        </nav>
-
-        <h2 class="section-title">بر اساس لوکیشن</h2>
-        <nav class="flag-nav">
-            <button class="flag-btn" data-url="https://raw.githubusercontent.com/arshiacomplus/v2rayExtractor/main/loc/DE%20%F0%9F%87%A9%F0%9F%87%AA.txt" data-name="آلمان">
-                <div class="flag-img-container"><img src="https://flagcdn.com/w160/de.png" alt="پرچم آلمان"></div>
-                <div class="flag-label">آلمان / DE</div>
-            </button>
-            <button class="flag-btn" data-url="https://raw.githubusercontent.com/arshiacomplus/v2rayExtractor/main/loc/NL%20%F0%9F%87%B3%F0%9F%87%B1.txt" data-name="هلند">
-                <div class="flag-img-container"><img src="https://flagcdn.com/w160/nl.png" alt="پرچم هلند"></div>
-                <div class="flag-label">هلند / NL</div>
-            </button>
-            <button class="flag-btn" data-url="https://raw.githubusercontent.com/arshiacomplus/v2rayExtractor/main/loc/US%20%F0%9F%87%BA%F0%9F%87%B8.txt" data-name="آمریکا">
-                <div class="flag-img-container"><img src="https://flagcdn.com/w160/us.png" alt="پرچم آمریکا"></div>
-                <div class="flag-label">آمریکا / US</div>
-            </button>
-            <button class="flag-btn" data-url="https://raw.githubusercontent.com/arshiacomplus/v2rayExtractor/main/loc/FR%20%F0%9F%87%AB%F0%9F%87%B7.txt" data-name="فرانسه">
-                <div class="flag-img-container"><img src="https://flagcdn.com/w160/fr.png" alt="پرچم فرانسه"></div>
-                <div class="flag-label">فرانسه / FR</div>
-            </button>
-            <button class="flag-btn" data-url="https://raw.githubusercontent.com/arshiacomplus/v2rayExtractor/main/loc/GB%20%F0%9F%87%AC%F0%9F%87%A7.txt" data-name="بریتانیا">
-                <div class="flag-img-container"><img src="https://flagcdn.com/w160/gb.png" alt="پرچم بریتانیا"></div>
-                <div class="flag-label">بریتانیا / GB</div>
-            </button>
-        </nav>
-        <div id="message-area"></div>
-    </main>
-
-    <footer class="main-footer">
-        <div class="footer-content">
-            <p class="designer-name">طراحی و توسعه: پوریا عبدالله نژاد</p>
-            <a class="instagram-link" href="https://www.instagram.com/pooria_abdollahnezhad" target="_blank">
-                <svg class="instagram-logo" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="url(#insta-gradient)"><defs><radialGradient id="insta-gradient" cx="0.3" cy="1" r="1"><stop offset="0" stop-color="#FFD600"/><stop offset="0.5" stop-color="#FF7A00"/><stop offset="1" stop-color="#FF0169"/></radialGradient></defs><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.85s-.011 3.584-.069 4.85c-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07s-3.584-.012-4.85-.07c-3.252-.148-4.771-1.691-4.919-4.919-.058-1.265-.069-1.645-.069-4.85s.011-3.584.069-4.85c.149-3.225 1.664-4.771 4.919-4.919C8.416 2.175 8.796 2.163 12 2.163zm0 1.802C9.04 3.965 8.709 3.974 7.436 4.03c-2.924.135-4.14 1.353-4.276 4.276-.057 1.273-.066 1.603-.066 4.694s.009 3.42.066 4.694c.137 2.923 1.353 4.14 4.276 4.276 1.273.057 1.604.066 4.564.066s3.291-.009 4.564-.066c2.923-.136 4.14-1.353 4.276-4.276.057-1.273.066-1.604.066-4.694s-.009-3.42-.066-4.694c-.136-2.922-1.353-4.14-4.276-4.276-1.272-.057-1.603-.066-4.564-.066zM12 6.837c-2.843 0-5.153 2.31-5.153 5.153s2.31 5.153 5.153 5.153 5.153-2.31 5.153-5.153S14.843 6.837 12 6.837zm0 8.508c-1.85 0-3.355-1.505-3.355-3.355s1.505-3.355 3.355-3.355 3.355 1.505 3.355 3.355-1.505 3.355-3.355 3.355zm5.353-7.424c-.606 0-1.097.492-1.097 1.097s.491 1.097 1.097 1.097c.605 0 1.097-.492 1.097-1.097s-.492-1.097-1.097-1.097z"/></svg>
-                <span class="instagram-username">pooria_abdollahnezhad</span>
-            </a>
-            <a class="telegram-link" href="https://t.me/REDFREE8" target="_blank">
-                <svg class="telegram-logo" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#29A9EA">
-                    <path fill-rule="evenodd" d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10zm-3.36-9.124l7.92-3.61c.88-.4 1.22.28.98.88l-2.48 7.89c-.19.6-.6.75-1.08.48l-2.55-1.88-1.23 1.18c-.26.25-.48.37-.8.37l.18-2.6 5.05-4.55c.23-.21-.05-.33-.36-.12l-6.23 3.9c-.6.37-1.03.18-1.2-.4L6.1 13.26c-.25-.8.33-1.15 1.02-1.04l2.52.32z" clip-rule="evenodd"/>
-                </svg>
-                <span class="telegram-username">REDFREE8</span>
-            </a>
+        <div class="redfree-subs-section">
+          <h3>
+            ساب‌های اختصاصی کانال <a href="https://t.me/REDFREE8" target="_blank">REDFREE8</a>
+          </h3>
+          <div class="sub-container-redfree">
+            <button class="sub-button-red" onclick="copyToClipboard('https://raw.githubusercontent.com/pooriamred/config-fetcher-reality/refs/heads/main/configs/proxy_configs.txt#@Redfree8/reality', this)">REALITY pro</button>
+            <button class="sub-button-red" onclick="copyToClipboard('https://raw.githubusercontent.com/pooriAbdollahnezhad/config-fetcher-hy2/refs/heads/main/configs/proxy_configs.txt#@REDFREE8/Hysteria2', this)">HY2 pro</button>
+            <button class="sub-button-red" onclick="copyToClipboard('https://raw.githubusercontent.com/redfree8/config-fetcher/refs/heads/main/configs/proxy_configs.txt#@REDFREE8/MIXpro', this)">MIX pro</button>
+            <button class="sub-button-red" onclick="copyToClipboard('https://raw.githubusercontent.com/pooriaorg99/config-fetcher-vless/refs/heads/main/configs/proxy_configs.txt#@REDFREE8/vless', this)">VLESSpro</button>
+            <button class="sub-button-red" onclick="copyToClipboard('https://raw.githubusercontent.com/pooriaorg10/config-fetcher-ss/refs/heads/main/configs/proxy_configs.txt#@REDFREE8/ss', this)">SS pro</button>
+          </div>
         </div>
-        
-        <div class="recommendation-section">
-            <h2 class="section-title">برنامه‌های پیشنهادی</h2>
-            <p class="recommendation-text">برای استفاده از لینک‌های اشتراک، می‌توانید یکی از برنامه‌های زیر را نصب کنید. البته این لینک‌ها در اکثر برنامه‌های رایج دیگر نیز قابل استفاده هستند.</p>
-            <div class="app-links-container">
-                <div class="app-card">
-                    <img class="app-logo" src="https://hiddify.com/assets/img/logo.svg" alt="Hiddify Logo">
-                    <span class="app-name">Hiddify Next</span>
-                    <a href="https://github.com/hiddify/hiddify-next/releases" class="download-btn" target="_blank">صفحه دانلود</a>
-                </div>
-                <div class="app-card">
-                    <img class="app-logo" src="https://raw.githubusercontent.com/2dust/v2rayNG/master/app/src/main/res/mipmap-xxxhdpi/ic_launcher.png" alt="v2rayNG Logo">
-                    <span class="app-name">V2RayNG (Android)</span>
-                    <a href="https://github.com/2dust/v2rayNG/releases" class="download-btn" target="_blank">صفحه دانلود</a>
-                </div>
-                 <div class="app-card">
-                    <img class="app-logo" src="https://is1-ssl.mzstatic.com/image/thumb/Purple126/v4/4b/3a/43/4b3a4365-5c82-186e-41d3-45569477e383/AppIcon-0-0-1x_U007emarketing-0-0-0-7-0-0-sRGB-0-0-0-GLES2_U002c0-512MB-85-220-0-0.png/230x0w.webp" alt="Karing Logo">
-                    <span class="app-name">Karing (iOS)</span>
-                    <a href="https://apps.apple.com/app/id6472431552" class="download-btn" target="_blank">دریافت از اپ استور</a>
-                </div>
+
+        <h2 class="public-services-title">سرویس های عمومی</h2>
+        <nav class="subscription-menu">
+            <button class="sub-button active" data-sub="mix">همه کانفیگ‌ها (Mix)</button>
+            <button class="sub-button" data-sub="vless">VLESS</button>
+            <button class="sub-button" data-sub="vmess">VMess</button>
+            <button class="sub-button" data-sub="trojan">Trojan</button>
+            <button class="sub-button" data-sub="ss">ShadowSocks</button>
+            <button class="sub-button" data-sub="hy2">Hysteria2</button>
+        </nav>
+
+        <div id="configs-container">
+            <div class="loader-container">
+                <div class="loader"></div>
+                <p>در حال بارگذاری و شخصی‌سازی کانفیگ‌ها...</p>
             </div>
         </div>
+    </main>
+
+    <div class="app-download-section">
+      <h3>راهنمای استفاده و دانلود</h3>
+      <p>
+        برای استفاده از ساب‌ها می‌توانید برنامه‌های Hiddify یا Karing را نصب کنید.
+        <br>
+        البته در برنامه‌های دیگر هم قابل اجراست.
+      </p>
+      <div class="apps-container">
+        <div class="app-card">
+          <h4>HiddifyNext</h4>
+          <a href="https://apps.apple.com/app/id6596777532" class="download-button ios-button" target="_blank">دانلود برای آیفون (iOS)</a>
+          <a href="https://github.com/hiddify/hiddify-next/releases/latest/download/hiddify-android-universal.apk" class="download-button android-button" target="_blank">دانلود برای اندروید (Android)</a>
+        </div>
+        <div class="app-card">
+          <h4>Karing</h4>
+          <a href="https://apps.apple.com/app/id6472431552" class="download-button ios-button" target="_blank">دانلود برای آیفون (iOS)</a>
+          <a href="https://github.com/KaringX/karing/releases/download/v1.1.4.730/karing_1.1.4.730_android_armeabi-v7a.apk" class="download-button android-button" target="_blank">دانلود برای اندروید (Android)</a>
+        </div>
+      </div>
+    </div>
+
+    <footer class="main-footer">
+        <p>طراح سایت: پوریا عبدالله نژاد</p>
+        <a href="https://www.instagram.com/pooria_abdollahnezhad" target="_blank">
+            اینستاگرام: pooria_abdollahnezhad
+        </a>
     </footer>
 
     <script>
-        // --- تمام کدهای جاوا اسکریپت در اینجا قرار دارند ---
-        document.addEventListener('DOMContentLoaded', () => {
-            const allButtons = document.querySelectorAll('.nav-btn, .flag-btn');
-            const messageArea = document.getElementById('message-area');
-            const themeToggle = document.getElementById('theme-toggle');
-            const body = document.body;
-
-            // مدیریت تم
-            const applyTheme = (theme) => {
-                body.classList.toggle('dark-theme', theme === 'dark');
-                themeToggle.checked = (theme === 'dark');
-            };
-            themeToggle.addEventListener('change', () => {
-                const selectedTheme = themeToggle.checked ? 'dark' : 'light';
-                localStorage.setItem('theme', selectedTheme);
-                applyTheme(selectedTheme);
+        // A global function to handle copying text for all buttons
+        function copyToClipboard(text, element) {
+            navigator.clipboard.writeText(text).then(() => {
+                const originalText = element.innerText;
+                element.classList.add('copied');
+                element.innerText = 'کپی شد!';
+                setTimeout(() => {
+                    element.classList.remove('copied');
+                    element.innerText = originalText;
+                }, 1500);
+            }).catch(err => {
+                console.error('Failed to copy: ', err);
+                element.textContent = 'خطا در کپی';
             });
-            const savedTheme = localStorage.getItem('theme') || 'light';
-            applyTheme(savedTheme);
+        }
 
-            // نمایش پیام
-            function showMessage(text, isError = false) {
-                const color = isError ? 'var(--iran-red)' : 'var(--success-color)';
-                messageArea.innerHTML = `<p style="color: ${color}; font-weight: bold;">${text}</p>`;
+        document.addEventListener('DOMContentLoaded', () => {
+            // --- Elements ---
+            const themeToggleButton = document.getElementById('theme-toggle');
+            const configsContainer = document.getElementById('configs-container');
+            const menuButtons = document.querySelectorAll('.sub-button');
+
+            // --- Subscription Links ---
+            const subLinks = {
+                mix: "https://raw.githubusercontent.com/arshiacomplus/v2rayExtractor/refs/heads/main/mix/sub.html",
+                vless: "https://raw.githubusercontent.com/arshiacomplus/v2rayExtractor/refs/heads/main/vless.html",
+                vmess: "https://raw.githubusercontent.com/arshiacomplus/v2rayExtractor/refs/heads/main/vmess.html",
+                trojan: "https://raw.githubusercontent.com/arshiacomplus/v2rayExtractor/refs/heads/main/trojan.html",
+                ss: "https://raw.githubusercontent.com/arshiacomplus/v2rayExtractor/refs/heads/main/ss.html",
+                hy2: "https://raw.githubusercontent.com/arshiacomplus/v2rayExtractor/refs/heads/main/hy2.html"
+            };
+
+            // --- Theme Logic ---
+            const currentTheme = localStorage.getItem('theme');
+            if (currentTheme) {
+                document.documentElement.setAttribute('data-theme', currentTheme);
+                if (currentTheme === 'dark') {
+                    themeToggleButton.textContent = '☀️';
+                }
             }
 
-            // عملکرد دکمه‌ها
-            allButtons.forEach(button => {
-                const buttonName = button.dataset.name || button.textContent.trim();
-                
-                button.addEventListener('click', () => {
-                    if (button.classList.contains('copied')) return;
+            themeToggleButton.addEventListener('click', () => {
+                let theme = document.documentElement.getAttribute('data-theme');
+                if (theme === 'dark') {
+                    document.documentElement.setAttribute('data-theme', 'light');
+                    localStorage.setItem('theme', 'light');
+                    themeToggleButton.textContent = '🌙';
+                } else {
+                    document.documentElement.setAttribute('data-theme', 'dark');
+                    localStorage.setItem('theme', 'dark');
+                    themeToggleButton.textContent = '☀️';
+                }
+            });
+            
+            // --- Main Fetch and Process Logic ---
+            const fetchAndProcessConfigs = async (subType) => {
+                configsContainer.innerHTML = `<div class="loader-container"><div class="loader"></div><p>در حال بارگذاری و شخصی‌سازی کانفیگ‌های ${subType}...</p></div>`;
+                try {
+                    const proxyUrl = 'https://api.allorigins.win/raw?url=';
+                    const fetchUrl = `${proxyUrl}${encodeURIComponent(subLinks[subType])}`;
+                    const response = await fetch(fetchUrl);
+                    if (!response.ok) throw new Error(`خطا در دریافت اطلاعات: ${response.statusText}`);
+                    const data = await response.text();
 
-                    const urlToCopy = button.dataset.url;
-
-                    if (urlToCopy) {
-                        navigator.clipboard.writeText(urlToCopy).then(() => {
-                            showMessage(`آدرس لینک ${buttonName} با موفقیت کپی شد!`, false);
-                            button.classList.add('copied');
-                            if(button.classList.contains('nav-btn')) {
-                                button.textContent = 'کپی شد!';
-                            }
-
-                            setTimeout(() => {
-                                button.classList.remove('copied');
-                                if(button.classList.contains('nav-btn')) {
-                                    button.textContent = buttonName;
-                                }
-                            }, 2000);
-                        }).catch(err => {
-                            console.error('Copy failed', err);
-                            showMessage('خطا در کپی کردن. لطفا دوباره تلاش کنید.', true);
-                        });
+                    configsContainer.innerHTML = '';
+                    const configs = data.split('\n').filter(line => line.trim() !== '');
+                    if (configs.length === 0) {
+                        configsContainer.innerHTML = '<div class="loader-container"><p>کانفیگی برای نمایش یافت نشد.</p></div>';
+                        return;
                     }
+
+                    configs.forEach((config, index) => {
+                        const newName = `pooriared${index + 1}`;
+                        let modifiedConfig = '';
+                        try {
+                            const protocolIndex = config.indexOf('://');
+                            if (protocolIndex === -1) return;
+                            const protocol = config.substring(0, protocolIndex + 3);
+                            let restOfConfig = config.substring(protocolIndex + 3);
+                            const hashIndex = restOfConfig.lastIndexOf('#');
+                            if (hashIndex !== -1) {
+                                restOfConfig = restOfConfig.substring(0, hashIndex);
+                            }
+                            modifiedConfig = `${protocol}${restOfConfig}#${encodeURIComponent(newName)}`;
+                        } catch (e) {
+                            console.error('Error processing config:', config, e);
+                            return;
+                        }
+                        const card = document.createElement('div');
+                        card.className = 'config-card';
+                        card.innerHTML = `<div class="config-name">${newName}</div><button class="copy-button" data-config="${modifiedConfig}">کپی کردن کانفیگ</button>`;
+                        configsContainer.appendChild(card);
+                    });
+
+                } catch (error) {
+                    console.error(error);
+                    configsContainer.innerHTML = `<div class="loader-container"><p>مشکلی پیش آمد: ${error.message}. لطفاً دوباره تلاش کنید.</p></div>`;
+                }
+            };
+            
+            // --- Copy to Clipboard for dynamically generated configs ---
+            configsContainer.addEventListener('click', (e) => {
+                if (e.target.classList.contains('copy-button')) {
+                    const configToCopy = e.target.getAttribute('data-config');
+                    copyToClipboard(configToCopy, e.target);
+                }
+            });
+
+            // --- Menu Button Logic ---
+            menuButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    menuButtons.forEach(btn => btn.classList.remove('active'));
+                    button.classList.add('active');
+                    const subType = button.getAttribute('data-sub');
+                    fetchAndProcessConfigs(subType);
                 });
             });
+
+            // --- Initial Load ---
+            fetchAndProcessConfigs('mix');
         });
     </script>
+
 </body>
 </html>
