@@ -32,10 +32,9 @@
             --success-color: #28a745;
             --success-color-glow: rgba(40, 167, 69, 0.5);
 
-            /* --- رنگ‌های جدید برای دکمه‌های اختصاصی --- */
-            --exclusive-color: #e53935; /* رنگ قرمز اختصاصی */
-            --exclusive-color-hover: #d32f2f; /* رنگ قرمز هاور */
-            --exclusive-color-glow: rgba(229, 57, 53, 0.8); /* نور قرمز قوی‌تر */
+            --exclusive-color: #e53935;
+            --exclusive-color-hover: #d32f2f;
+            --exclusive-color-glow: rgba(229, 57, 53, 0.8);
 
             --bg-color: var(--bg-light);
             --text-color: var(--text-light);
@@ -64,10 +63,9 @@
             50% { box-shadow: 7px 7px 15px var(--shadow-2), -7px -7px 15px var(--shadow-1), 0 0 20px 5px var(--success-color-glow); }
             100% { box-shadow: 7px 7px 15px var(--shadow-2), -7px -7px 15px var(--shadow-1), 0 0 0px var(--success-color-glow); }
         }
-        /* --- انیمیشن جدید برای دکمه‌های اختصاصی --- */
         @keyframes exclusive-success-glow-pulse {
             0% { box-shadow: 7px 7px 15px var(--shadow-2), -7px -7px 15px var(--shadow-1), 0 0 0px var(--exclusive-color-glow); }
-            50% { box-shadow: 7px 7px 20px var(--shadow-2), -7px -7px 20px var(--shadow-1), 0 0 40px 12px var(--exclusive-color-glow); } /* نور بسیار بیشتر */
+            50% { box-shadow: 7px 7px 20px var(--shadow-2), -7px -7px 20px var(--shadow-1), 0 0 40px 12px var(--exclusive-color-glow); }
             100% { box-shadow: 7px 7px 15px var(--shadow-2), -7px -7px 15px var(--shadow-1), 0 0 0px var(--exclusive-color-glow); }
         }
         * { box-sizing: border-box; }
@@ -82,15 +80,31 @@
         .title-container h3 { font-size: 1.5rem; font-weight: 500; margin: 0 0 10px 0; color: var(--primary-color); }
         .subtitle { font-size: 1rem; margin: 0; }
         .section-title { font-size: 1.2rem; text-align: center; font-weight: 700; margin: 2rem 0 1.5rem 0; color: var(--text-color); }
+        
+        /* --- استایل جدید برای کادر راهنما --- */
+        .info-box {
+            background: var(--card-bg);
+            padding: 12px 25px;
+            border-radius: 15px;
+            box-shadow: 5px 5px 10px var(--shadow-2), -5px -5px 10px var(--shadow-1);
+            margin-top: 1.5rem;
+            display: inline-block;
+        }
+        .info-box p {
+            margin: 0;
+            font-size: 0.95rem;
+            font-weight: 500;
+            color: var(--text-color);
+        }
+
         .sub-nav, .flag-nav { display: grid; grid-template-columns: 1fr 1fr; gap: 25px 20px; margin-top: 1rem; }
         .nav-btn { background: var(--card-bg); color: var(--text-color); border: none; padding: 18px; font-family: 'Vazirmatn', sans-serif; font-size: 1rem; font-weight: 700; border-radius: 12px; cursor: pointer; transition: all 0.2s ease-out; box-shadow: 7px 7px 15px var(--shadow-2), -7px -7px 15px var(--shadow-1); min-height: 60px; }
         .nav-btn:hover:not(:disabled), .flag-btn:hover:not(:disabled) { transform: translateY(-5px); box-shadow: 7px 12px 20px var(--shadow-2), -7px -12px 20px var(--shadow-1); }
         .nav-btn.copied, .flag-btn.copied { animation: success-glow-pulse 0.8s ease-out; cursor: default; }
         .nav-btn:disabled, .flag-btn:disabled { cursor: default; }
         
-        /* --- استایل‌های جدید برای دکمه‌های اختصاصی --- */
         .exclusive-sub-nav { display: grid; grid-template-columns: 1fr 1fr; gap: 25px 20px; margin-top: 1rem; }
-        .exclusive-sub-nav .nav-btn:nth-last-child(1):nth-child(odd) { grid-column: 1 / -1; } /* برای وسط‌چین کردن دکمه آخر اگر فرد باشد */
+        .exclusive-sub-nav .nav-btn:nth-last-child(1):nth-child(odd) { grid-column: 1 / -1; }
         .exclusive-btn { background: var(--exclusive-color); color: var(--iran-white); }
         .exclusive-btn:hover:not(:disabled) { background: var(--exclusive-color-hover); transform: translateY(-5px); box-shadow: 7px 12px 20px var(--shadow-2), -7px -12px 20px var(--shadow-1); }
         .exclusive-btn.copied { animation: exclusive-success-glow-pulse 1s ease-out; }
@@ -106,8 +120,7 @@
         .instagram-link, .telegram-link { display: flex; align-items: center; justify-content: center; gap: 10px; text-decoration: none; transition: transform 0.3s ease; }
         .instagram-link { margin-bottom: 0.7rem; }
         .instagram-link:hover, .telegram-link:hover { transform: scale(1.05); }
-        .instagram-username { color: var(--text-color); font-weight: 700; font-size: 1.1rem; transition: color 0.3s ease; }
-        .telegram-username { color: var(--text-color); font-weight: 500; font-size: 1rem; transition: color 0.3s ease; }
+        .instagram-username, .telegram-username { color: var(--text-color); font-weight: 700; font-size: 1.1rem; transition: color 0.3s ease; }
         .instagram-link:hover .instagram-username, .telegram-link:hover .telegram-username { color: var(--primary-color); }
         .instagram-logo, .telegram-logo { width: 24px; height: 24px; }
         .theme-switcher-container { position: absolute; top: 0; left: 1rem; }
@@ -116,8 +129,7 @@
         .slider { position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background-color: var(--bg-color); transition: .4s; border-radius: 50%; box-shadow: 3px 3px 6px var(--shadow-2), -3px -3px 6px var(--shadow-1); }
         .slider:before { position: absolute; content: "🌙"; font-size: 18px; height: 100%; width: 100%; display: flex; align-items: center; justify-content: center; transition: .4s; opacity: 1; }
         body.dark-theme .slider:before { content: "☀️"; }
-
-        /* --- استایل‌های جدید برای بخش دانلود در فوتر --- */
+        
         .download-info { margin-top: 2rem; border-top: 1px solid var(--shadow-2); padding-top: 1.5rem; }
         .download-info p { font-size: 0.95rem; line-height: 1.6; margin-bottom: 1.5rem; }
         .app-cards-container { display: flex; flex-direction: column; gap: 1.5rem; }
@@ -134,7 +146,15 @@
         <div class="iran-flag-banner"><h1>به امید ایرانی آزاد</h1></div>
         <div class="header-content">
             <div class="theme-switcher-container"><label class="theme-switcher"><input type="checkbox" id="theme-toggle"><span class="slider"></span></label></div>
-            <div class="title-container"><h2>V2Ray Extractor</h2><h3>Ultimate</h3><p class="subtitle">استخراج و شخصی‌سازی کانفیگ‌های V2Ray</p></div>
+            <div class="title-container">
+                <h2>V2Ray Extractor</h2>
+                <h3>Ultimate</h3>
+                <p class="subtitle">استخراج و شخصی‌سازی کانفیگ‌های V2Ray</p>
+                
+                <div class="info-box">
+                    <p>با ضربه زدن بر روی ساب، لینک کپی خواهد شد</p>
+                </div>
+                </div>
         </div>
     </header>
     <main>
@@ -148,6 +168,7 @@
             <button class="nav-btn exclusive-btn" data-url="https://raw.githubusercontent.com/pooriaorg99/config-fetcher-vless/refs/heads/main/configs/proxy_configs.txt#@REDFREE8/vless">VLESSpro</button>
             <button class="nav-btn exclusive-btn" data-url="https://raw.githubusercontent.com/pooriaorg10/config-fetcher-ss/refs/heads/main/configs/proxy_configs.txt#@REDFREE8/ss">SS pro</button>
         </nav>
+        
         <h2 class="section-title">سرویس‌های عمومی</h2>
         <nav class="sub-nav">
             <button class="nav-btn" data-url="https://raw.githubusercontent.com/arshiacomplus/v2rayExtractor/refs/heads/main/mix/sub.html">MIX</button>
@@ -233,7 +254,7 @@
                     </div>
                 </div>
             </div>
-            </div>
+        </div>
     </footer>
 
     <script>
@@ -279,14 +300,14 @@
                             button.classList.add('copied');
                             button.disabled = true;
 
-                            if(button.classList.contains('nav-btn') && !button.classList.contains('exclusive-btn')) {
+                            if(button.classList.contains('nav-btn') && !button.classList.contains('exclusive-btn') && !button.closest('.flag-nav')) {
                                 button.textContent = 'کپی شد!';
                             }
 
                             setTimeout(() => {
                                 button.classList.remove('copied');
                                 button.disabled = false;
-                                if(button.classList.contains('nav-btn') && !button.classList.contains('exclusive-btn')) {
+                                if(button.classList.contains('nav-btn') && !button.classList.contains('exclusive-btn') && !button.closest('.flag-nav')) {
                                     button.textContent = buttonName;
                                 }
                             }, 2000);
