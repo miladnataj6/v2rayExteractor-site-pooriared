@@ -131,14 +131,28 @@
         
         .download-info { margin-top: 2rem; border-top: 1px solid var(--shadow-2); padding-top: 1.5rem; }
         .download-info p { font-size: 0.95rem; line-height: 1.6; margin-bottom: 1.5rem; }
-        .download-info .update-notice { color: var(--primary-color); font-weight: bold; margin-bottom: 1.5rem; margin-top: -1rem; /* برای چسبیدن به پاراگراف بالا */}
-        .app-cards-container { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; } /* استفاده از گرید برای چیدمان دو ستونی */
+        .download-info .update-notice { color: var(--primary-color); font-weight: bold; margin-bottom: 1.5rem; margin-top: -1rem; }
+        
+        /* --- تغییر در این بخش برای واکنش‌گرایی --- */
+        .app-cards-container {
+            display: flex; /* حالت پیش‌فرض برای موبایل */
+            flex-direction: column; /* چیدن کارت‌ها زیر هم */
+            gap: 1.5rem;
+        }
         .app-card { background: var(--bg-color); padding: 1.2rem; border-radius: 12px; box-shadow: 7px 7px 15px var(--shadow-2), -7px -7px 15px var(--shadow-1); text-align: center; }
         .app-card h4 { margin: 0 0 1rem 0; font-size: 1.2rem; font-weight: 700; color: var(--primary-color); }
         .download-links { display: flex; justify-content: center; align-items: center; gap: 1rem; }
         .download-btn { display: flex; align-items: center; justify-content: center; gap: 8px; flex: 1; padding: 12px; border-radius: 8px; background-color: var(--card-bg); box-shadow: 5px 5px 10px var(--shadow-2), -5px -5px 10px var(--shadow-1); text-decoration: none; color: var(--text-color); font-weight: 500; transition: all 0.2s ease-out; }
         .download-btn:hover { transform: translateY(-3px); color: var(--primary-color); }
         .download-btn svg { width: 22px; height: 22px; fill: currentColor; }
+
+        /* --- مدیا کوئری برای نمایش دو ستونی در صفحات بزرگتر --- */
+        @media (min-width: 500px) {
+            .app-cards-container {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+            }
+        }
     </style>
 </head>
 <body>
