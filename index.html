@@ -74,7 +74,8 @@
         .title-container h3 { font-size: 1.5rem; font-weight: 500; margin: 0 0 10px 0; color: var(--primary-color); }
         .subtitle { font-size: 1rem; margin: 0; }
         .section-title { font-size: 1.2rem; text-align: center; font-weight: 700; margin: 2rem 0 1.5rem 0; color: var(--text-color); }
-        .sub-nav, .flag-nav { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 25px 20px; margin-top: 1rem; }
+        /* تغییر چیدمان به حالت دو ستونی ثابت */
+        .sub-nav, .flag-nav { display: grid; grid-template-columns: 1fr 1fr; --grid-gap: 20px; gap: 25px var(--grid-gap); margin-top: 1rem; }
         .nav-btn { background: var(--card-bg); color: var(--text-color); border: none; padding: 18px; font-family: 'Vazirmatn', sans-serif; font-size: 1rem; font-weight: 700; border-radius: 12px; cursor: pointer; transition: all 0.2s ease-out; box-shadow: 7px 7px 15px var(--shadow-2), -7px -7px 15px var(--shadow-1); min-height: 60px; }
         .nav-btn:hover:not(:disabled), .flag-btn:hover:not(:disabled) { transform: translateY(-5px); box-shadow: 7px 12px 20px var(--shadow-2), -7px -12px 20px var(--shadow-1); }
         .nav-btn.copied, .flag-btn.copied { animation: success-glow-pulse 0.8s ease-out; cursor: default; }
@@ -82,6 +83,12 @@
         .special-btn { background: var(--special-red); color: white; }
         body.dark-theme .special-btn { background: var(--special-red); }
         .special-btn.copied { color: white; animation: special-glow-pulse 0.9s ease-out; }
+        /* کد جدید برای وسط چین کردن دکمه پنجم */
+        .special-sub-nav .nav-btn:last-child:nth-child(odd) {
+            grid-column: 1 / -1; /* کل عرض گرید را اشغال کند */
+            justify-self: center; /* خود دکمه در این فضا وسط چین شود */
+            width: calc(50% - (var(--grid-gap) / 2)); /* عرض دکمه برابر یک ستون باشد */
+        }
         .flag-btn { border: none; padding: 0; overflow: hidden; display: flex; flex-direction: column; background: var(--card-bg); font-family: 'Vazirmatn', sans-serif; border-radius: 12px; cursor: pointer; transition: all 0.2s ease-out; box-shadow: 7px 7px 15px var(--shadow-2), -7px -7px 15px var(--shadow-1); }
         .flag-img-container { width: 100%; height: 90px; }
         .flag-img-container img { width: 100%; height: 100%; object-fit: cover; }
@@ -124,7 +131,7 @@
     </header>
     <main>
         <h2 class="section-title">ساب های اختصاصی کانال REDFREE8</h2>
-        <nav class="sub-nav">
+        <nav class="sub-nav special-sub-nav">
              <button class="nav-btn special-btn" data-url="https://raw.githubusercontent.com/pooriamred/config-fetcher-reality/refs/heads/main/configs/proxy_configs.txt#@Redfree8/reality">REALITY pro</button>
              <button class="nav-btn special-btn" data-url="https://raw.githubusercontent.com/pooriAbdollahnezhad/config-fetcher-hy2/refs/heads/main/configs/proxy_configs.txt#@REDFREE8/Hysteria2">HY2 pro</button>
              <button class="nav-btn special-btn" data-url="https://raw.githubusercontent.com/redfree8/config-fetcher/refs/heads/main/configs/proxy_configs.txt#@REDFREE8/MIXpro">MIX pro</button>
@@ -193,12 +200,12 @@
                     <a href="https://github.com/hiddify/hiddify-next/releases" class="download-btn" target="_blank">صفحه دانلود</a>
                 </div>
                 <div class="app-card">
-                    <img class="app-logo" style="border-radius: 50%;" src="https://avatars.githubusercontent.com/u/144943918?s=200&v=4" alt="Karing Logo">
-                    <span class="app-name">Karing (Android)</span>
-                    <a href="https://github.com/KaringX/karing/releases/download/v1.1.4.730/karing_1.1.4.730_android_armeabi-v7a.apk" class="download-btn" target="_blank">دانلود اندروید</a>
+                    <img class="app-logo" src="https://raw.githubusercontent.com/2dust/v2rayNG/master/app/src/main/res/mipmap-xxxhdpi/ic_launcher.png" alt="v2rayNG Logo">
+                    <span class="app-name">V2RayNG (Android)</span>
+                    <a href="https://github.com/2dust/v2rayNG/releases" class="download-btn" target="_blank">صفحه دانلود</a>
                 </div>
                  <div class="app-card">
-                    <img class="app-logo" style="border-radius: 50%;" src="https://avatars.githubusercontent.com/u/144943918?s=200&v=4" alt="Karing Logo">
+                    <img class="app-logo" src="https://is1-ssl.mzstatic.com/image/thumb/Purple126/v4/4b/3a/43/4b3a4365-5c82-186e-41d3-45569477e383/AppIcon-0-0-1x_U007emarketing-0-0-0-7-0-0-sRGB-0-0-0-GLES2_U002c0-512MB-85-220-0-0.png/230x0w.webp" alt="Karing Logo">
                     <span class="app-name">Karing (iOS)</span>
                     <a href="https://apps.apple.com/app/id6472431552" class="download-btn" target="_blank">دریافت از اپ استور</a>
                 </div>
